@@ -705,74 +705,6 @@
             .sidebar { display: none; }
             .top-bar { padding: 0.8rem 1rem; flex-wrap: wrap; }
             .content { padding: 1rem; padding-bottom: 80px; }
-             .file-card {
-    border:#007aff 1px solid;
-    background: var(--card);
-    border-radius: var(--radius-lg);
-    padding: 1rem;
-    /* border: 1px solid var(--border); */
-    display: flex;
-    width: 360px;
-    flex-direction: column;
-    gap: 0.1rem;
-    }
-             .msg-panel {
-        border: 1px solid red;
-        padding: 0.9rem;
-        margin-bottom: 1.2rem;
-        border-radius: var(--radius-md);
-                 .msg-panel-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .msg-input-row {
-            display: flex;
-            gap: 0.6rem;
-        }
-
-        .msg-input-row input {
-            flex: 1;
-            background: var(--hover);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.65rem 1rem;
-            color: var(--text);
-            font-size: 0.9rem;
-            outline: none;
-            font-family: inherit;
-        }
-
-        .msg-input-row input:focus {
-            border-color: var(--primary);
-        }
-    }
-            .panel-action-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 0 1.2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-family: inherit;
-        }
-
-        .panel-action-btn.voice-btn {
-            background: var(--danger);
-        }
-
-        .panel-action-btn.voice-btn.recording {
-            animation: pulseRecord 1.5s infinite;
-        }
             .mobile-nav {
                 display: flex;
                 position: fixed;
@@ -905,6 +837,8 @@
                     <input type="file" id="fileInput" multiple hidden>
                     <button class="upload-btn" id="browseBtn"><i class="fas fa-plus"></i> Choose Files</button>
                 </div>
+
+                <!-- Note / Caption Field & Direct Message/Voice Panel -->
                 <div class="msg-panel">
                     <div class="msg-panel-title"><i class="fas fa-comment-dots"></i> Upload Caption / Send Direct Note & Voice</div>
                     <div class="msg-input-row">
@@ -913,15 +847,6 @@
                         <button class="panel-action-btn voice-btn" id="recordVoiceBtn"><i class="fas fa-microphone"></i> <span id="voiceBtnText">Voice</span></button>
                     </div>
                 </div>
-                <!-- Note / Caption Field & Direct Message/Voice Panel -->
-               <!--  <div class="msg-panel">
-                    <div class="msg-panel-title"><i class="fas fa-comment-dots"></i> Upload Caption / Send Direct Note & Voice</div>
-                    <div class="msg-input-row">
-                        <input type="text" id="uploadNoteInput" placeholder="Type file note / caption or direct message...">
-                        <button class="panel-action-btn" id="sendMsgBtn"><i class="fas fa-paper-plane"></i> Send Text</button>
-                        <button class="panel-action-btn voice-btn" id="recordVoiceBtn"><i class="fas fa-microphone"></i> <span id="voiceBtnText">Voice</span></button>
-                    </div>
-                </div> -->
 
                 <div id="progressContainer" class="progress-modal hidden">
                     <div style="font-size:0.9rem; font-weight:600;" id="progressText">Uploading...</div>
@@ -1288,7 +1213,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-actions" style="display: flex; gap: 0.3rem; padding-top: 0.6rem; border-top: 1px solid var(--border); margin-top: auto;">
+                        <div class="card-actions" style="display: flex; gap: 0.1rem; padding-top: 0.6rem; border-top: 1px solid var(--border); margin-top: auto;">
                             <button class="card-action-btn" data-action="preview" data-id="${file.file_id}" title="Preview" style="flex:1; background:transparent; border:none; color:var(--text-secondary); padding:0.4rem; border-radius:8px; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center; gap:0.3rem;"><i class="fas fa-eye"></i><span>View</span></button>
                             <button class="card-action-btn" data-action="download" data-id="${file.file_id}" data-name="${file.name.replace(/"/g, '&quot;')}" title="Download" style="flex:1; background:transparent; border:none; color:var(--text-secondary); padding:0.4rem; border-radius:8px; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center; gap:0.3rem;"><i class="fas fa-arrow-down"></i><span>Get</span></button>
                             <button class="card-action-btn" data-action="share" data-id="${file.file_id}" title="Share link" style="flex:1; background:transparent; border:none; color:var(--text-secondary); padding:0.4rem; border-radius:8px; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center; gap:0.3rem;"><i class="fas fa-link"></i><span>Share</span></button>
@@ -1359,11 +1284,21 @@
                 }
 
                 let endpoint = 'sendDocument';
-                let paramName = 'document';
+let paramName = 'document';
 
-                if (file.type.startsWith('video/')) { endpoint = 'sendVideo'; paramName = 'video'; }
-                else if (file.type.startsWith('audio/')) { endpoint = 'sendAudio'; paramName = 'audio'; }
-                else if (file.type.startsWith('image/')) { endpoint = 'sendPhoto'; paramName = 'photo'; }
+if (file.type.startsWith('video/')) { endpoint = 'sendVideo'; paramName = 'video'; }
+else if (file.type.startsWith('audio/')) { 
+    endpoint = 'sendVoice'; // ប្តូរទៅជា sendVoice ដើម្បីឱ្យ Telegram ស្គាល់ជា Voice Note
+    paramName = 'voice'; 
+}
+else if (file.type.startsWith('image/')) { endpoint = 'sendPhoto'; paramName = 'photo'; }
+
+                // let endpoint = 'sendDocument';
+                // let paramName = 'document';
+
+                // if (file.type.startsWith('video/')) { endpoint = 'sendVideo'; paramName = 'video'; }
+                // else if (file.type.startsWith('audio/')) { endpoint = 'sendAudio'; paramName = 'audio'; }
+                // else if (file.type.startsWith('image/')) { endpoint = 'sendPhoto'; paramName = 'photo'; }
 
                 formData.append(paramName, file);
 
@@ -1428,7 +1363,8 @@
                         mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
                         mediaRecorder.onstop = async () => {
                             const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                            const audioFile = new File([audioBlob], `voice_note_${Date.now()}.webm`, { type: 'audio/webm' });
+                            const audioFile = new File([audioBlob], `voice_note_${Date.now()}.ogg`, { type: 'audio/ogg' });
+                            // const audioFile = new File([audioBlob], `voice_note_${Date.now()}.webm`, { type: 'audio/webm' });
                             showToast('Sending voice note...', 'info');
                             try {
                                 await uploadFile(audioFile, uploadNoteInput.value || 'Voice Note');
