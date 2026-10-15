@@ -71,17 +71,6 @@
             letter-spacing: -0.01em;
         }
 
-        .btn-primary {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: black;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
         .bg-canvas {
             position: fixed;
             inset: 0;
@@ -98,62 +87,17 @@
             animation: float 20s infinite ease-in-out;
         }
 
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: #0a84ff;
-            top: -150px;
-            left: -100px;
-            animation-delay: 0s;
-        }
+        .orb-1 { width: 500px; height: 500px; background: #0a84ff; top: -150px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 400px; height: 400px; background: #bf5af2; bottom: -100px; right: -50px; animation-delay: -5s; }
+        .orb-3 { width: 350px; height: 350px; background: #64d2ff; top: 40%; left: 50%; animation-delay: -10s; opacity: 0.35; }
+        .orb-4 { width: 300px; height: 300px; background: #ff375f; bottom: 20%; left: 20%; animation-delay: -15s; opacity: 0.3; }
 
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: #bf5af2;
-            bottom: -100px;
-            right: -50px;
-            animation-delay: -5s;
-        }
-
-        .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: #64d2ff;
-            top: 40%;
-            left: 50%;
-            animation-delay: -10s;
-            opacity: 0.35;
-        }
-
-        .orb-4 {
-            width: 300px;
-            height: 300px;
-            background: #ff375f;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: -15s;
-            opacity: 0.3;
-        }
-
-        body.light .orb {
-            opacity: 0.35;
-        }
+        body.light .orb { opacity: 0.35; }
 
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            33% {
-                transform: translate(60px, -40px) scale(1.1);
-            }
-
-            66% {
-                transform: translate(-40px, 50px) scale(0.95);
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(60px, -40px) scale(1.1); }
+            66% { transform: translate(-40px, 50px) scale(0.95); }
         }
 
         .noise {
@@ -253,26 +197,10 @@
             color: var(--text);
         }
 
-        .nav-item:hover:not(.active) i {
-            transform: scale(1.1);
-        }
-
         .nav-item.active {
             background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.14));
             color: var(--text);
             font-weight: 600;
-        }
-
-        .nav-item.active::before {
-            content: '';
-            position: absolute;
-            left: -0.9rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 3px;
-            height: 18px;
-            background: linear-gradient(180deg, var(--primary), var(--primary-2));
-            border-radius: 0 3px 3px 0;
         }
 
         .nav-badge {
@@ -285,33 +213,13 @@
             color: var(--text-secondary);
         }
 
-        .nav-item.active .nav-badge {
-            background: rgba(10, 132, 255, 0.2);
-            color: var(--primary);
-        }
-
         .storage-card {
             margin-top: auto;
-            margin-left: 0.3rem;
-            margin-right: 0.3rem;
-            margin-bottom: 0.3rem;
+            margin: auto 0.3rem 0.3rem 0.3rem;
             background: linear-gradient(135deg, rgba(10, 132, 255, 0.12), rgba(94, 92, 230, 0.08));
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 1.1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .storage-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(10, 132, 255, 0.3), transparent 70%);
-            filter: blur(20px);
         }
 
         .storage-header {
@@ -321,25 +229,18 @@
             font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 0.7rem;
-            position: relative;
-        }
-
-        .storage-header i {
-            color: var(--primary);
         }
 
         .storage-amount {
             font-size: 1.3rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
             margin-bottom: 0.3rem;
-            position: relative;
         }
 
         .storage-amount span {
             color: var(--text-secondary);
-            font-weight: 500;
             font-size: 0.85rem;
+            font-weight: 500;
         }
 
         .progress-bg {
@@ -348,7 +249,6 @@
             border-radius: 20px;
             overflow: hidden;
             margin: 0.5rem 0;
-            position: relative;
         }
 
         .progress-fill {
@@ -357,31 +257,6 @@
             background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 20px;
             transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        .storage-sub {
-            font-size: 0.72rem;
-            color: var(--text-tertiary);
-            position: relative;
         }
 
         .main {
@@ -407,7 +282,6 @@
         .page-title {
             font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
             display: flex;
             align-items: center;
             gap: 0.6rem;
@@ -436,19 +310,6 @@
             border-radius: 12px;
             padding: 0.55rem 1rem;
             width: 280px;
-            transition: all 0.2s;
-        }
-
-        .search-wrapper:focus-within {
-            border-color: var(--primary);
-            background: var(--card);
-            box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15);
-        }
-
-        .search-wrapper i {
-            color: var(--text-tertiary);
-            margin-right: 0.6rem;
-            font-size: 0.9rem;
         }
 
         .search-wrapper input {
@@ -459,10 +320,6 @@
             outline: none;
             font-size: 0.9rem;
             font-family: inherit;
-        }
-
-        .search-wrapper input::placeholder {
-            color: var(--text-tertiary);
         }
 
         .actions {
@@ -483,12 +340,10 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 0.95rem;
         }
 
         .icon-btn:hover {
             background: var(--border);
-            transform: translateY(-1px);
         }
 
         .sort-select {
@@ -499,8 +354,6 @@
             border-radius: 10px;
             font-family: inherit;
             font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
             outline: none;
         }
 
@@ -508,58 +361,24 @@
             flex: 1;
             padding: 1.8rem 2rem;
             overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        .content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .content::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .content::-webkit-scrollbar-thumb {
-            background: var(--border-strong);
-            border-radius: 10px;
         }
 
         .upload-area {
-            position: relative;
             border-radius: var(--radius-xl);
             padding: 2.2rem;
             text-align: center;
             background: var(--card);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             cursor: pointer;
-            overflow: hidden;
-        }
-
-        .upload-area::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(10, 132, 255, 0.08), rgba(191, 90, 242, 0.05), rgba(100, 210, 255, 0.08));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .upload-area:hover::before {
-            opacity: 1;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .upload-area.drag-over {
             border-color: var(--primary);
+            background: rgba(10, 132, 255, 0.08);
             transform: scale(1.01);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .upload-area.drag-over::before {
-            opacity: 1;
         }
 
         .upload-icon-wrap {
@@ -571,33 +390,6 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 1rem;
-            position: relative;
-            z-index: 1;
-            border: 1px solid rgba(10, 132, 255, 0.2);
-        }
-
-        .upload-icon-wrap i {
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .upload-area h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .upload-area p {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
         }
 
         .upload-btn {
@@ -607,27 +399,85 @@
             padding: 0.75rem 1.8rem;
             border-radius: 30px;
             font-weight: 600;
-            font-size: 0.9rem;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-            position: relative;
-            z-index: 1;
             font-family: inherit;
             box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35);
         }
 
-        .upload-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(10, 132, 255, 0.45);
+        .msg-panel {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .msg-panel-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .msg-input-row {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .msg-input-row input {
+            flex: 1;
+            background: var(--hover);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.65rem 1rem;
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .msg-input-row input:focus {
+            border-color: var(--primary);
+        }
+
+        .panel-action-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: inherit;
+        }
+
+        .panel-action-btn.voice-btn {
+            background: var(--danger);
+        }
+
+        .panel-action-btn.voice-btn.recording {
+            animation: pulseRecord 1.5s infinite;
+        }
+
+        @keyframes pulseRecord {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .progress-modal {
             background: var(--card);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             padding: 1rem 1.3rem;
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
@@ -635,84 +485,6 @@
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .progress-modal .file-icon-mini {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.95rem;
-            flex-shrink: 0;
-        }
-
-        .progress-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .progress-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 0.3rem;
-        }
-
-        .progress-bar-wrap {
-            height: 4px;
-            background: var(--border);
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 20px;
-            transition: width 0.2s;
-        }
-
-        .progress-percent {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary);
-            min-width: 45px;
-            text-align: right;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.2rem;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-secondary);
         }
 
         .file-grid {
@@ -724,321 +496,48 @@
         .file-card {
             background: var(--card);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-lg);
             padding: 1.2rem;
             border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
-            cursor: pointer;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            animation: cardIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes cardIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px) scale(0.98);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .file-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--type-color, var(--primary));
-            opacity: 0;
-            transition: opacity 0.2s;
         }
 
         .file-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             border-color: var(--border-strong);
             box-shadow: var(--shadow-md);
-        }
-
-        .file-card:hover::before {
-            opacity: 1;
-        }
-
-        .file-card-top {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.8rem;
-        }
-
-        .file-icon-box {
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            background: var(--type-bg, rgba(10, 132, 255, 0.15));
-            color: var(--type-color, var(--primary));
-            border: 1px solid var(--type-border, rgba(10, 132, 255, 0.2));
-        }
-
-        .file-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .file-name {
-            font-weight: 600;
-            font-size: 0.92rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 0.2rem;
-            letter-spacing: -0.01em;
-        }
-
-        .file-meta {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .file-meta .dot {
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background: var(--text-tertiary);
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 0.3rem;
-            padding-top: 0.6rem;
-            border-top: 1px solid var(--border);
-            margin-top: auto;
-        }
-
-        .card-action-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            padding: 0.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-        }
-
-        .card-action-btn span {
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .card-action-btn:hover {
-            background: var(--hover);
-            color: var(--primary);
-        }
-
-        .card-action-btn.danger:hover {
-            background: rgba(255, 69, 58, 0.1);
-            color: var(--danger);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-secondary);
-        }
-
-        .empty-illustration {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 1.5rem;
-            position: relative;
-        }
-
-        .empty-illustration .cloud {
-            width: 140px;
-            height: 100px;
-            background: linear-gradient(135deg, rgba(10, 132, 255, 0.15), rgba(94, 92, 230, 0.1));
-            border-radius: 50px;
-            position: relative;
-            border: 2px dashed var(--border-strong);
-        }
-
-        .empty-illustration .cloud::before {
-            content: '';
-            position: absolute;
-            top: -30px;
-            left: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(10, 132, 255, 0.2), rgba(94, 92, 230, 0.15));
-            border-radius: 50%;
-            border: 2px dashed var(--border-strong);
-        }
-
-        .empty-illustration .cloud::after {
-            content: '';
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, rgba(100, 210, 255, 0.2), rgba(10, 132, 255, 0.15));
-            border-radius: 50%;
-            border: 2px dashed var(--border-strong);
-        }
-
-        .empty-state h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.4rem;
-        }
-
-        .empty-state p {
-            font-size: 0.9rem;
-            max-width: 320px;
-            margin: 0 auto;
-        }
-
-        .toast {
-            position: fixed;
-            top: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: var(--card-solid);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border-strong);
-            padding: 0.8rem 1.3rem;
-            border-radius: 14px;
-            box-shadow: var(--shadow-lg);
-            z-index: 9999;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            animation: toastIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .toast.hide {
-            animation: toastOut 0.3s ease forwards;
-        }
-
-        @keyframes toastIn {
-            from {
-                transform: translateX(-50%) translateY(-100px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(-50%) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes toastOut {
-            to {
-                transform: translateX(-50%) translateY(-100px);
-                opacity: 0;
-            }
-        }
-
-        .toast-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .toast.success .toast-icon {
-            background: rgba(48, 209, 88, 0.15);
-            color: var(--success);
-        }
-
-        .toast.error .toast-icon {
-            background: rgba(255, 69, 58, 0.15);
-            color: var(--danger);
-        }
-
-        .toast.info .toast-icon {
-            background: rgba(10, 132, 255, 0.15);
-            color: var(--primary);
         }
 
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            animation: fadeIn 0.2s ease;
             padding: 1rem;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
         }
 
         .modal-content {
             background: var(--card-solid);
             border: 1px solid var(--border-strong);
             border-radius: var(--radius-xl);
-            max-width: 680px;
+            max-width: 580px;
             width: 100%;
             max-height: 85vh;
+            overflow-y: auto;
             padding: 1.5rem;
-            box-shadow: var(--shadow-lg);
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            overflow: hidden;
-        }
-
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.92);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            box-shadow: var(--shadow-lg);
         }
 
         .modal-header {
@@ -1050,7 +549,6 @@
         .modal-title {
             font-size: 1.1rem;
             font-weight: 600;
-            letter-spacing: -0.01em;
         }
 
         .modal-close {
@@ -1064,294 +562,161 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
         }
 
-        .modal-close:hover {
-            background: var(--border);
-            transform: rotate(90deg);
-        }
-
-        .preview-wrap {
-            background: var(--bg);
-            border-radius: var(--radius-md);
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-            max-height: 55vh;
-            overflow: auto;
-        }
-
-        .preview-wrap img,
-        .preview-wrap video {
-            max-width: 100%;
-            max-height: 50vh;
-            border-radius: 12px;
-            object-fit: contain;
-        }
-
-        .preview-placeholder {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .preview-placeholder i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .file-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-            padding: 1rem;
-            background: var(--hover);
-            border-radius: var(--radius-md);
-        }
-
-        .detail-item {
+        .settings-form {
             display: flex;
             flex-direction: column;
-            gap: 0.2rem;
+            gap: 1rem;
         }
 
-        .detail-label {
-            font-size: 0.72rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-        }
-
-        .detail-value {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .share-link-box {
+        .settings-group {
             display: flex;
-            gap: 0.5rem;
+            flex-direction: column;
+            gap: 0.4rem;
         }
 
-        .share-link-box input {
-            flex: 1;
+        .settings-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .settings-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-group input {
             background: var(--hover);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 0.7rem 1rem;
+            padding: 0.75rem 3.5rem 0.75rem 1rem;
             color: var(--text);
-            font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             outline: none;
+            width: 100%;
+            font-family: inherit;
         }
 
-        .share-link-box input:focus {
+        .settings-group input:focus {
             border-color: var(--primary);
         }
 
-        .share-link-box button {
-            background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        .paste-btn {
+            position: absolute;
+            right: 8px;
+            background: var(--border-strong);
             border: none;
-            color: white;
-            padding: 0 1.2rem;
-            border-radius: 10px;
+            color: var(--text);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            font-family: inherit;
+        }
+
+        .paste-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .recent-section {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-height: 140px;
+            overflow-y: auto;
+        }
+
+        .recent-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-tertiary);
+        }
+
+        .recent-row {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            transition: all 0.2s;
+            justify-content: space-between;
+            background: var(--hover);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            gap: 0.5rem;
         }
 
-        .share-link-box button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .confirm-modal .modal-content {
-            max-width: 400px;
-        }
-
-        .confirm-body {
-            text-align: center;
-            padding: 1rem 0;
-        }
-
-        .confirm-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 69, 58, 0.12);
-            color: var(--danger);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin: 0 auto 1rem;
-        }
-
-        .confirm-body h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
-        }
-
-        .confirm-body p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .confirm-actions {
-            display: flex;
-            gap: 0.6rem;
-            margin-top: 0.5rem;
-        }
-
-        .confirm-actions button {
+        .recent-row-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             flex: 1;
+            font-family: monospace;
+            color: var(--text-secondary);
+        }
+
+        .recent-row-label {
+            font-weight: 600;
+            color: var(--text);
+            font-family: inherit;
+            margin-right: 0.4rem;
+        }
+
+        .recent-actions {
+            display: flex;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        .recent-action-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .recent-action-btn.copy { color: var(--warning); }
+        .recent-action-btn.delete { color: var(--danger); }
+
+        .settings-save-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-2));
+            color: white;
+            border: none;
             padding: 0.75rem;
             border-radius: 12px;
             font-weight: 600;
-            font-size: 0.9rem;
             cursor: pointer;
             font-family: inherit;
-            transition: all 0.2s;
-            border: 1px solid var(--border);
         }
 
-        .btn-cancel {
-            background: var(--hover);
-            color: var(--text);
-        }
+        .hidden { display: none !important; }
+        .mobile-nav { display: none; }
 
-        .btn-cancel:hover {
-            background: var(--border);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-            border-color: var(--danger) !important;
-        }
-
-        .btn-danger:hover {
-            background: #d63630;
-            transform: translateY(-1px);
-        }
-
-        /* Mobile Navigation Bar */
-        .mobile-nav {
-            display: none;
-        }
-
-        /* Responsive Rules for Mobile */
         @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
-            /* Hide sidebar on small mobile screens */
-
-            .top-bar {
-                padding: 0.8rem 1rem;
-                flex-wrap: wrap;
-                gap: 0.6rem;
-            }
-
-            .page-title {
-                font-size: 1.2rem;
-            }
-
-            .top-actions-wrapper {
-                width: 100%;
-                display: flex;
-                gap: 0.5rem;
-            }
-
-            .search-wrapper {
-                flex: 1;
-                width: auto;
-                padding: 0.45rem 0.8rem;
-            }
-
-            .sort-select {
-                padding: 0.45rem 0.6rem;
-                font-size: 0.8rem;
-            }
-
-            .content {
-                padding: 1rem;
-                padding-bottom: 80px;
-            }
-
-            /* Bottom space for nav bar */
-            .upload-area {
-                padding: 1.2rem 0.8rem;
-                margin-bottom: 1.2rem;
-                border-radius: var(--radius-lg);
-            }
-
-            .upload-icon-wrap {
-                width: 50px;
-                height: 50px;
-                border-radius: 14px;
-                margin-bottom: 0.6rem;
-            }
-
-            .upload-icon-wrap i {
-                font-size: 1.3rem;
-            }
-
-            .upload-area h3 {
-                font-size: 1rem;
-            }
-
-            .upload-area p {
-                font-size: 0.8rem;
-                margin-bottom: 0.8rem;
-            }
-
-            .upload-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.82rem;
-            }
-
-            .file-grid {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-
-            .file-card {
-                padding: 0.9rem;
-                border-radius: var(--radius-md);
-            }
-
-            /* Bottom Navigation Bar for Mobile Phones */
+            .sidebar { display: none; }
+            .top-bar { padding: 0.8rem 1rem; flex-wrap: wrap; }
+            .content { padding: 1rem; padding-bottom: 80px; }
             .mobile-nav {
                 display: flex;
                 position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                bottom: 0; left: 0; right: 0;
                 height: 60px;
                 background: var(--sidebar-bg);
-                backdrop-filter: blur(30px) saturate(180%);
-                -webkit-backdrop-filter: blur(30px) saturate(180%);
+                backdrop-filter: blur(30px);
                 border-top: 1px solid var(--border);
                 z-index: 100;
                 justify-content: space-around;
                 align-items: center;
             }
-
             .mobile-nav-item {
                 display: flex;
                 flex-direction: column;
@@ -1359,14 +724,9 @@
                 gap: 2px;
                 color: var(--text-secondary);
                 font-size: 0.7rem;
-                text-decoration: none;
                 cursor: pointer;
+                text-decoration: none;
             }
-
-            .mobile-nav-item i {
-                font-size: 1.1rem;
-            }
-
             .mobile-nav-item.active {
                 color: var(--primary);
                 font-weight: 600;
@@ -1414,29 +774,25 @@
                     <span>Documents</span>
                     <span class="nav-badge" id="badgeDocs">0</span>
                 </div>
-
                 <div class="nav-item" data-view="audio">
                     <i class="fas fa-music"></i>
                     <span>Audio</span>
                     <span class="nav-badge" id="badgeAudio">0</span>
                 </div>
-                <div class="nav-item" data-view="images" style="background-color:blue;">
-                    <i class="fas fa-heart"></i>
-                    <span>
-                        <span> <a href="special.html" style="text-decoration: none; color:#30d158 ;">Love</a></span>
-                    </span>
+                <div class="nav-item" style="background-color:rgba(10, 132, 255, 0.1);">
+                    <i class="fas fa-heart" style="color: #ff375f;"></i>
+                    <span><a href="special.html" style="text-decoration: none; color:var(--text);">Love</a></span>
                 </div>
-
             </nav>
 
             <div class="storage-card">
                 <div class="storage-header">
-                    <i class="fas fa-bolt"></i>
+                    <i class="fas fa-bolt" style="color:var(--primary);"></i>
                     <span>Cloud Storage</span>
                 </div>
                 <div class="storage-amount">
                     <span id="storageUsed">0 MB</span>
-                    <span>/ Unlimited</span>
+                    <span style="font-size:0.8rem; color:var(--text-secondary);">/ Unlimited</span>
                 </div>
                 <div class="progress-bg">
                     <div class="progress-fill" id="storageBar"></div>
@@ -1453,7 +809,7 @@
                 </div>
                 <div class="top-actions-wrapper">
                     <div class="search-wrapper">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-search" style="color:var(--text-tertiary); margin-right:0.5rem;"></i>
                         <input type="text" id="searchInput" placeholder="Search files...">
                     </div>
                     <div class="actions">
@@ -1465,9 +821,8 @@
                             <option value="size-desc">Largest</option>
                             <option value="size-asc">Smallest</option>
                         </select>
-                        <button class="icon-btn" id="themeToggle" title="Toggle theme">
-                            <i class="fas fa-moon"></i>
-                        </button>
+                        <button class="icon-btn" id="settingsToggle" title="Settings"><i class="fas fa-gear"></i></button>
+                        <button class="icon-btn" id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button>
                     </div>
                 </div>
             </header>
@@ -1475,27 +830,26 @@
             <div class="content">
                 <div class="upload-area" id="dropZone">
                     <div class="upload-icon-wrap">
-                        <i class="fas fa-cloud-upload-alt"></i>
+                        <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem; color:var(--primary);"></i>
                     </div>
                     <h3>Drop files to upload</h3>
-                    <p>or tap to browse files</p>
+                    <p style="color:var(--text-secondary); margin:0.5rem 0 1rem;">or tap to browse files</p>
                     <input type="file" id="fileInput" multiple hidden>
                     <button class="upload-btn" id="browseBtn"><i class="fas fa-plus"></i> Choose Files</button>
                 </div>
 
-                <div id="progressContainer" class="progress-modal hidden">
-                    <div class="file-icon-mini"><i class="fas fa-arrow-up"></i></div>
-                    <div class="progress-info">
-                        <div class="progress-name" id="progressText">Uploading...</div>
-                        <div class="progress-bar-wrap">
-                            <div class="progress-bar-fill" id="progressBarFill"></div>
-                        </div>
+                <!-- Note / Caption Field & Direct Message/Voice Panel -->
+                <div class="msg-panel">
+                    <div class="msg-panel-title"><i class="fas fa-comment-dots"></i> Upload Caption / Send Direct Note & Voice</div>
+                    <div class="msg-input-row">
+                        <input type="text" id="uploadNoteInput" placeholder="Type file note / caption or direct message...">
+                        <button class="panel-action-btn" id="sendMsgBtn"><i class="fas fa-paper-plane"></i> Send Text</button>
+                        <button class="panel-action-btn voice-btn" id="recordVoiceBtn"><i class="fas fa-microphone"></i> <span id="voiceBtnText">Voice</span></button>
                     </div>
-                    <div class="progress-percent" id="progressPercent">0%</div>
                 </div>
 
-                <div class="section-header">
-                    <div class="section-title" id="sectionLabel">Recent Uploads</div>
+                <div id="progressContainer" class="progress-modal hidden">
+                    <div style="font-size:0.9rem; font-weight:600;" id="progressText">Uploading...</div>
                 </div>
 
                 <div class="file-grid" id="fileGrid"></div>
@@ -1505,28 +859,54 @@
 
     <!-- Mobile Bottom Navigation Bar -->
     <nav class="mobile-nav">
-        <div class="mobile-nav-item active" data-view="all">
-            <i class="fas fa-folder"></i>
-            <span>All</span>
-        </div>
-        <div class="mobile-nav-item" data-view="images">
-            <i class="fas fa-image"></i>
-            <span>Images</span>
-        </div>
-        <div class="mobile-nav-item" data-view="videos">
-            <i class="fas fa-video"></i>
-            <span>Videos</span>
-        </div>
-        <div class="mobile-nav-item" data-view="documents">
-            <i class="fas fa-file-alt"></i>
-            <span>Docs</span>
-        </div>
-        <div class="mobile-nav-item" data-view="documents">
-            <i class="fas fa-heart" style="color: red;"></i>
-            <span> <a href="special.html" style="text-decoration: none; color:#30d158 ">Love</a></span>
-            <!-- color:#30d158  -->
-        </div>
+        <div class="mobile-nav-item active" data-view="all"><i class="fas fa-folder"></i><span>All</span></div>
+        <div class="mobile-nav-item" data-view="images"><i class="fas fa-image"></i><span>Images</span></div>
+        <div class="mobile-nav-item" data-view="videos"><i class="fas fa-video"></i><span>Videos</span></div>
+        <div class="mobile-nav-item" data-view="documents"><i class="fas fa-file-alt"></i><span>Docs</span></div>
+        <a href="special.html" class="mobile-nav-item"><i class="fas fa-heart" style="color: #ff375f;"></i><span>Love</span></a>
     </nav>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Settings</div>
+                <button class="modal-close" id="closeSettingsBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="settings-form">
+                <div class="settings-group">
+                    <label for="inputBotToken">BOT_TOKEN</label>
+                    <div class="settings-input-wrapper">
+                        <input type="text" id="inputBotToken" placeholder="Enter Bot Token">
+                        <button type="button" class="paste-btn" id="pasteTokenBtn"><i class="fas fa-paste"></i> Paste</button>
+                    </div>
+                    <div class="recent-section">
+                        <div class="recent-section-title">Recent Bot Tokens</div>
+                        <div id="recentTokensList"></div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <label for="inputChatName">NAME FOR CHAT_ID</label>
+                    <input type="text" id="inputChatName" placeholder="e.g. My Backup Channel">
+                </div>
+
+                <div class="settings-group">
+                    <label for="inputChatId">CHAT_ID</label>
+                    <div class="settings-input-wrapper">
+                        <input type="text" id="inputChatId" placeholder="Enter Chat ID">
+                        <button type="button" class="paste-btn" id="pasteChatBtn"><i class="fas fa-paste"></i> Paste</button>
+                    </div>
+                    <div class="recent-section">
+                        <div class="recent-section-title">Recent Chat IDs</div>
+                        <div id="recentChatsList"></div>
+                    </div>
+                </div>
+
+                <button class="settings-save-btn" id="saveSettingsBtn">Save Settings</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Preview Modal -->
     <div id="previewModal" class="modal-overlay hidden">
@@ -1545,27 +925,37 @@
     </div>
 
     <!-- Confirm Modal -->
-    <div id="confirmModal" class="modal-overlay hidden confirm-modal">
-        <div class="modal-content">
-            <div class="confirm-body">
-                <div class="confirm-icon"><i class="fas fa-trash"></i></div>
-                <h3 id="confirmTitle">Remove from Library?</h3>
-                <p id="confirmText">This will remove the file from your local view, but it will remain safe in your
-                    Telegram chat.</p>
-            </div>
-            <div class="confirm-actions">
-                <button class="btn-cancel" id="confirmCancel">Cancel</button>
-                <button class="btn-danger" id="confirmOk">Remove</button>
+    <div id="confirmModal" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <div style="font-size: 2rem; color: var(--danger); margin-bottom: 0.5rem;"><i class="fas fa-triangle-exclamation"></i></div>
+            <h3 id="confirmTitle" style="margin-bottom: 0.4rem;">Remove from Library?</h3>
+            <p id="confirmText" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.2rem;"></p>
+            <div style="display: flex; gap: 0.6rem;">
+                <button id="confirmCancel" style="flex:1; padding: 0.7rem; border-radius: 10px; border:1px solid var(--border); background:var(--hover); color:var(--text); cursor:pointer; font-weight:600;">Cancel</button>
+                <button id="confirmOk" style="flex:1; padding: 0.7rem; border-radius: 10px; border:none; background:var(--danger); color:white; cursor:pointer; font-weight:600;">Remove</button>
             </div>
         </div>
     </div>
 
     <script>
         (function () {
-            const BOT_TOKEN = '8682853483:AAGAYIWkf_k0BAck3Gp2FkMkZg4mGh7x2tc';
-            const CHAT_ID = '-1004428694157';
             const STORAGE_KEY = 'teledrive_files_v2';
             const SETTINGS_KEY = 'teledrive_settings';
+
+            let savedSettings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+            let BOT_TOKEN = savedSettings.botToken || '8682853483:AAGAYIWkf_k0BAck3Gp2FkMkZg4mGh7x2tc';
+            let CHAT_ID = savedSettings.chatId || '-1004428694157';
+            let CHAT_NAME = savedSettings.chatName || '';
+
+            let recentTokens = savedSettings.recentTokens || [BOT_TOKEN];
+            let recentChats = savedSettings.recentChats || [{ id: CHAT_ID, name: CHAT_NAME || 'Default Chat' }];
+            let filesMetadata = [];
+            let currentView = 'all';
+            let pendingDelete = null;
+
+            let mediaRecorder = null;
+            let audioChunks = [];
+            let isRecording = false;
 
             const $ = id => document.getElementById(id);
             const fileGrid = $('fileGrid');
@@ -1576,14 +966,11 @@
             const browseBtn = $('browseBtn');
             const progressContainer = $('progressContainer');
             const progressText = $('progressText');
-            const progressBarFill = $('progressBarFill');
-            const progressPercent = $('progressPercent');
             const themeToggle = $('themeToggle');
             const storageBar = $('storageBar');
             const storageUsed = $('storageUsed');
             const fileCount = $('fileCount');
             const viewTitle = $('viewTitle');
-            const sectionLabel = $('sectionLabel');
             const previewModal = $('previewModal');
             const closePreviewBtn = $('closePreviewBtn');
             const previewContent = $('previewContent');
@@ -1591,17 +978,28 @@
             const previewDetails = $('previewDetails');
             const shareUrlInput = $('shareUrlInput');
             const copyShareBtn = $('copyShareBtn');
+            const settingsToggle = $('settingsToggle');
+            const settingsModal = $('settingsModal');
+            const closeSettingsBtn = $('closeSettingsBtn');
+            const inputBotToken = $('inputBotToken');
+            const inputChatId = $('inputChatId');
+            const inputChatName = $('inputChatName');
+            const pasteTokenBtn = $('pasteTokenBtn');
+            const pasteChatBtn = $('pasteChatBtn');
+            const recentTokensList = $('recentTokensList');
+            const recentChatsList = $('recentChatsList');
+            const saveSettingsBtn = $('saveSettingsBtn');
             const confirmModal = $('confirmModal');
             const confirmCancel = $('confirmCancel');
             const confirmOk = $('confirmOk');
             const confirmTitle = $('confirmTitle');
             const confirmText = $('confirmText');
+            const uploadNoteInput = $('uploadNoteInput');
+            const sendMsgBtn = $('sendMsgBtn');
+            const recordVoiceBtn = $('recordVoiceBtn');
+            const voiceBtnText = $('voiceBtnText');
 
             const navItems = document.querySelectorAll('.nav-item, .mobile-nav-item');
-
-            let currentView = 'all';
-            let filesMetadata = [];
-            let pendingDelete = null;
 
             const TYPE_CONFIG = {
                 image: { icon: 'fa-image', color: '#ff375f', bg: 'rgba(255, 55, 95, 0.15)', border: 'rgba(255, 55, 95, 0.25)' },
@@ -1686,15 +1084,12 @@
 
             function showToast(msg, type = 'info') {
                 document.querySelectorAll('.toast').forEach(t => t.remove());
-                const icons = { success: 'fa-check', error: 'fa-xmark', info: 'fa-info' };
                 const toast = document.createElement('div');
                 toast.className = `toast ${type}`;
-                toast.innerHTML = `<div class="toast-icon"><i class="fas ${icons[type]}"></i></div><span>${msg}</span>`;
+                toast.style.cssText = 'position:fixed; top:1.5rem; left:50%; transform:translateX(-50%); background:var(--card-solid); color:var(--text); padding:0.8rem 1.3rem; border-radius:14px; z-index:9999; font-size:0.9rem; border:1px solid var(--border-strong); box-shadow:0 10px 30px rgba(0,0,0,0.3);';
+                toast.textContent = msg;
                 document.body.appendChild(toast);
-                setTimeout(() => {
-                    toast.classList.add('hide');
-                    setTimeout(() => toast.remove(), 300);
-                }, 2800);
+                setTimeout(() => toast.remove(), 2500);
             }
 
             function openPreview(file) {
@@ -1721,15 +1116,15 @@
                     previewContent.appendChild(audio);
                 } else {
                     const cfg = getTypeConfig(type);
-                    previewContent.innerHTML = `<div class="preview-placeholder"><i class="fas ${cfg.icon}" style="color:${cfg.color}"></i><p style="color:var(--text-secondary)">No preview available</p></div>`;
+                    previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
                 }
 
                 previewDetails.innerHTML = `
-          <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
-          <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
-          <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
-          <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
-        `;
+                    <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
+                    <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
+                    <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
+                `;
 
                 shareUrlInput.value = 'Generating link...';
                 resolveFileUrl(file.file_id).then(url => {
@@ -1738,9 +1133,7 @@
             }
 
             closePreviewBtn.addEventListener('click', () => previewModal.classList.add('hidden'));
-            previewModal.addEventListener('click', (e) => {
-                if (e.target === previewModal) previewModal.classList.add('hidden');
-            });
+            previewModal.addEventListener('click', (e) => { if (e.target === previewModal) previewModal.classList.add('hidden'); });
 
             copyShareBtn.addEventListener('click', () => {
                 if (shareUrlInput.value && !shareUrlInput.value.includes('Unable') && !shareUrlInput.value.includes('Generating')) {
@@ -1751,32 +1144,20 @@
             function showConfirm(file) {
                 pendingDelete = file;
                 confirmTitle.textContent = 'Remove file?';
-                confirmText.textContent = `"${file.name}" will be removed from recent uploads. It stays in Telegram.`;
+                confirmText.textContent = `"${file.name}" will be removed from local view. It remains safe in your Telegram chat.`;
                 confirmModal.classList.remove('hidden');
             }
-            confirmCancel.addEventListener('click', () => {
-                confirmModal.classList.add('hidden');
-                pendingDelete = null;
-            });
-            confirmModal.addEventListener('click', (e) => {
-                if (e.target === confirmModal) {
-                    confirmModal.classList.add('hidden');
-                    pendingDelete = null;
-                }
-            });
 
-            // ONLY REMOVE FROM LOCAL UI / STORAGE (DO NOT DELETE FROM TELEGRAM)
-            confirmOk.addEventListener('click', async () => {
+            confirmCancel.addEventListener('click', () => { confirmModal.classList.add('hidden'); pendingDelete = null; });
+            confirmModal.addEventListener('click', (e) => { if (e.target === confirmModal) { confirmModal.classList.add('hidden'); pendingDelete = null; } });
+
+            confirmOk.addEventListener('click', () => {
                 if (!pendingDelete) return;
-                const file = pendingDelete;
-                confirmModal.classList.add('hidden');
-
-                // Remove from local list array
-                filesMetadata = filesMetadata.filter(f => f.file_id !== file.file_id);
+                filesMetadata = filesMetadata.filter(f => f.file_id !== pendingDelete.file_id);
                 saveMetadata();
                 renderFiles();
-
                 showToast('Removed from recent uploads', 'info');
+                confirmModal.classList.add('hidden');
                 pendingDelete = null;
             });
 
@@ -1803,43 +1184,42 @@
 
                 if (filtered.length === 0) {
                     fileGrid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1/-1;">
-              <div class="empty-illustration"><div class="cloud"></div></div>
-              <h3>${searchTerm ? 'No results found' : 'No files yet'}</h3>
-              <p>${searchTerm ? 'Try a different search term' : 'Upload files to see them here.'}</p>
-            </div>
-          `;
+                        <div style="text-align: center; padding: 4rem 2rem; color: var(--text-secondary); grid-column: 1/-1;">
+                            <h3>${searchTerm ? 'No results found' : 'No files yet'}</h3>
+                            <p style="font-size: 0.9rem; margin-top: 0.3rem;">${searchTerm ? 'Try a different search term' : 'Upload files to see them here.'}</p>
+                        </div>
+                    `;
                     updateStorageUI();
                     return;
                 }
 
-                filtered.forEach((file, idx) => {
+                filtered.forEach(file => {
                     const cfg = getTypeConfig(file.type);
                     const card = document.createElement('div');
                     card.className = 'file-card';
                     card.style.setProperty('--type-color', cfg.color);
                     card.style.setProperty('--type-bg', cfg.bg);
                     card.style.setProperty('--type-border', cfg.border);
-                    card.style.animationDelay = (idx * 0.03) + 's';
                     card.innerHTML = `
-            <div class="file-card-top">
-              <div class="file-icon-box"><i class="fas ${cfg.icon}"></i></div>
-              <div class="file-info">
-                <div class="file-name" title="${file.name}">${file.name}</div>
-                <div class="file-meta">
-                  <span>${formatBytes(file.size)}</span>
-                  <span class="dot"></span>
-                  <span>${formatDate(file.date)}</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-actions">
-              <button class="card-action-btn" data-action="preview" data-id="${file.file_id}" title="Preview"><i class="fas fa-eye"></i><span>View</span></button>
-              <button class="card-action-btn" data-action="download" data-id="${file.file_id}" data-name="${file.name.replace(/"/g, '&quot;')}" title="Download"><i class="fas fa-arrow-down"></i><span>Get</span></button>
-              <button class="card-action-btn" data-action="share" data-id="${file.file_id}" title="Share link"><i class="fas fa-link"></i><span>Share</span></button>
-              <button class="card-action-btn danger" data-action="delete" data-id="${file.file_id}" title="Remove"><i class="fas fa-trash"></i></button>
-            </div>
-          `;
+                        <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                            <div style="width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; background: ${cfg.bg}; color: ${cfg.color}; border: 1px solid ${cfg.border};"><i class="fas ${cfg.icon}"></i></div>
+                            <div style="flex: 1; min-width: 0;">
+                                <div class="file-name" title="${file.name}" style="font-weight: 600; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.2rem;">${file.name}</div>
+                                ${file.caption ? `<div style="font-size: 0.8rem; color: var(--primary); font-style: italic; margin-bottom: 0.2rem;">Note: ${file.caption}</div>` : ''}
+                                <div style="font-size: 0.78rem; color: var(--text-secondary); display: flex; gap: 0.5rem; align-items: center;">
+                                    <span>${formatBytes(file.size)}</span>
+                                    <span>•</span>
+                                    <span>${formatDate(file.date)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-actions" style="display: flex; gap: 0.3rem; padding-top: 0.6rem; border-top: 1px solid var(--border); margin-top: auto;">
+                            <button class="card-action-btn" data-action="preview" data-id="${file.file_id}" title="Preview" style="flex:1; background:transparent; border:none; color:var(--text-secondary); padding:0.4rem; border-radius:8px; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center; gap:0.3rem;"><i class="fas fa-eye"></i><span>View</span></button>
+                            <button class="card-action-btn" data-action="download" data-id="${file.file_id}" data-name="${file.name.replace(/"/g, '&quot;')}" title="Download" style="flex:1; background:transparent; border:none; color:var(--text-secondary); padding:0.4rem; border-radius:8px; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center; gap:0.3rem;"><i class="fas fa-arrow-down"></i><span>Get</span></button>
+                            <button class="card-action-btn" data-action="share" data-id="${file.file_id}" title="Share link" style="flex:1; background:transparent; border:none; color:var(--text-secondary); padding:0.4rem; border-radius:8px; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center; gap:0.3rem;"><i class="fas fa-link"></i><span>Share</span></button>
+                            <button class="card-action-btn danger" data-action="delete" data-id="${file.file_id}" title="Remove" style="flex:0.6; background:transparent; border:none; color:var(--text-secondary); padding:0.4rem; border-radius:8px; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center;"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
                     fileGrid.appendChild(card);
                 });
 
@@ -1848,7 +1228,7 @@
             }
 
             function attachCardEvents() {
-                document.querySelectorAll('.card-actions .card-action-btn').forEach(btn => {
+                document.querySelectorAll('.card-action-btn').forEach(btn => {
                     btn.addEventListener('click', async (e) => {
                         e.stopPropagation();
                         const action = btn.dataset.action;
@@ -1857,12 +1237,9 @@
                         if (action === 'preview') {
                             const file = filesMetadata.find(f => f.file_id === fileId);
                             if (file) openPreview(file);
-                        }
-                        else if (action === 'download') {
-                            const fileName = btn.dataset.name;
-                            await downloadFile(fileId, fileName);
-                        }
-                        else if (action === 'share') {
+                        } else if (action === 'download') {
+                            await downloadFile(fileId, btn.dataset.name);
+                        } else if (action === 'share') {
                             const file = filesMetadata.find(f => f.file_id === fileId);
                             if (file) {
                                 const url = await resolveFileUrl(file.file_id);
@@ -1872,8 +1249,7 @@
                                     showToast('Could not generate link', 'error');
                                 }
                             }
-                        }
-                        else if (action === 'delete') {
+                        } else if (action === 'delete') {
                             const file = filesMetadata.find(f => f.file_id === fileId);
                             if (file) showConfirm(file);
                         }
@@ -1899,38 +1275,26 @@
                 }
             }
 
-            async function uploadFile(file) {
+            async function uploadFile(file, captionNote = '') {
                 const formData = new FormData();
                 formData.append('chat_id', CHAT_ID);
                 formData.append('disable_notification', true);
+                if (captionNote) {
+                    formData.append('caption', captionNote);
+                }
 
                 let endpoint = 'sendDocument';
                 let paramName = 'document';
 
-                if (file.type.startsWith('video/')) {
-                    endpoint = 'sendVideo';
-                    paramName = 'video';
-                } else if (file.type.startsWith('audio/')) {
-                    endpoint = 'sendAudio';
-                    paramName = 'audio';
-                } else if (file.type.startsWith('image/')) {
-                    endpoint = 'sendPhoto';
-                    paramName = 'photo';
-                }
+                if (file.type.startsWith('video/')) { endpoint = 'sendVideo'; paramName = 'video'; }
+                else if (file.type.startsWith('audio/')) { endpoint = 'sendAudio'; paramName = 'audio'; }
+                else if (file.type.startsWith('image/')) { endpoint = 'sendPhoto'; paramName = 'photo'; }
 
                 formData.append(paramName, file);
 
                 return new Promise((resolve, reject) => {
                     const xhr = new XMLHttpRequest();
                     xhr.open('POST', `https://api.telegram.org/bot${BOT_TOKEN}/${endpoint}`);
-                    xhr.upload.onprogress = (e) => {
-                        if (e.lengthComputable) {
-                            const percent = Math.round((e.loaded / e.total) * 100);
-                            progressBarFill.style.width = percent + '%';
-                            progressPercent.textContent = percent + '%';
-                            progressText.textContent = file.name;
-                        }
-                    };
                     xhr.onload = () => {
                         if (xhr.status === 200) {
                             try {
@@ -1938,27 +1302,100 @@
                                 if (response.ok) resolve(response);
                                 else reject(new Error(response.description || 'Telegram error'));
                             } catch (e) { reject(e); }
-                        } else reject(new Error('HTTP ' + xhr.status));
+                        } else {
+                            if (xhr.status === 413 || xhr.status === 400) {
+                                reject(new Error('File too large or Telegram restriction exceeded'));
+                            } else {
+                                reject(new Error('HTTP ' + xhr.status));
+                            }
+                        }
                     };
                     xhr.onerror = () => reject(new Error('Network error'));
                     xhr.send(formData);
                 });
             }
 
-            async function handleFiles(files) {
-                if (!BOT_TOKEN || BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE') {
-                    showToast('Please configure bot token', 'error');
+            async function sendTextMessage(text) {
+                if (!BOT_TOKEN || !CHAT_ID) {
+                    showToast('Configure Bot Token & Chat ID first', 'error');
                     return;
                 }
+                if (!text.trim()) {
+                    showToast('Please type a message note', 'error');
+                    return;
+                }
+                try {
+                    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+                    });
+                    const data = await res.json();
+                    if (data.ok) {
+                        showToast('Message sent to chat!', 'success');
+                        uploadNoteInput.value = '';
+                    } else {
+                        throw new Error(data.description || 'Failed to send message');
+                    }
+                } catch (e) {
+                    showToast('Error: ' + e.message, 'error');
+                }
+            }
+
+            sendMsgBtn.addEventListener('click', () => sendTextMessage(uploadNoteInput.value));
+
+            async function toggleVoiceRecording() {
+                if (!isRecording) {
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        mediaRecorder = new MediaRecorder(stream);
+                        audioChunks = [];
+                        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                        mediaRecorder.onstop = async () => {
+                            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                            const audioFile = new File([audioBlob], `voice_note_${Date.now()}.webm`, { type: 'audio/webm' });
+                            showToast('Sending voice note...', 'info');
+                            try {
+                                await uploadFile(audioFile, uploadNoteInput.value || 'Voice Note');
+                                showToast('Voice note sent!', 'success');
+                                uploadNoteInput.value = '';
+                            } catch (err) {
+                                showToast('Failed to send voice', 'error');
+                            }
+                        };
+                        mediaRecorder.start();
+                        isRecording = true;
+                        recordVoiceBtn.classList.add('recording');
+                        voiceBtnText.textContent = 'Stop & Send';
+                        showToast('Recording voice...', 'info');
+                    } catch (e) {
+                        showToast('Microphone access denied or unavailable', 'error');
+                    }
+                } else {
+                    if (mediaRecorder) {
+                        mediaRecorder.stop();
+                        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                    }
+                    isRecording = false;
+                    recordVoiceBtn.classList.remove('recording');
+                    voiceBtnText.textContent = 'Voice';
+                }
+            }
+
+            recordVoiceBtn.addEventListener('click', toggleVoiceRecording);
+
+            async function handleFiles(files) {
+                if (!BOT_TOKEN) {
+                    showToast('Please configure bot token in settings', 'error');
+                    return;
+                }
+                const noteCaption = uploadNoteInput.value.trim();
                 progressContainer.classList.remove('hidden');
                 for (let file of files) {
                     try {
-                        progressBarFill.style.width = '0%';
-                        progressPercent.textContent = '0%';
-                        progressText.textContent = `Starting ${file.name}...`;
-                        const response = await uploadFile(file);
+                        progressText.textContent = `Uploading ${file.name}...`;
+                        const response = await uploadFile(file, noteCaption || `File: ${file.name}`);
                         const msg = response.result;
-
                         const mediaObj = msg.document || msg.video || msg.audio || (msg.photo ? msg.photo[msg.photo.length - 1] : null);
 
                         const newFile = {
@@ -1966,44 +1403,127 @@
                             size: (mediaObj && mediaObj.file_size) ? mediaObj.file_size : file.size,
                             type: (mediaObj && mediaObj.mime_type) ? mediaObj.mime_type : file.type,
                             file_id: mediaObj ? mediaObj.file_id : null,
-                            message_id: msg.message_id,
+                            caption: noteCaption,
                             date: new Date().toISOString()
                         };
 
                         filesMetadata.unshift(newFile);
                         saveMetadata();
-                        showToast(`${file.name} uploaded`, 'success');
+                        showToast(`${file.name} uploaded successfully`, 'success');
                     } catch (err) {
-                        showToast(`Failed: ${file.name}`, 'error');
+                        showToast(`Failed to upload: ${file.name} (${err.message})`, 'error');
                     }
                 }
                 progressContainer.classList.add('hidden');
+                uploadNoteInput.value = '';
                 renderFiles();
                 fileInput.value = '';
             }
 
-            browseBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                fileInput.click();
-            });
-            dropZone.addEventListener('click', (e) => {
-                if (e.target === dropZone || e.target.tagName === 'H3' || e.target.tagName === 'P') {
-                    fileInput.click();
-                }
-            });
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) handleFiles(e.target.files);
-            });
+            browseBtn.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
+            dropZone.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleFiles(e.target.files); });
 
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('drag-over');
-            });
+            dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
             dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
             dropZone.addEventListener('drop', (e) => {
                 e.preventDefault();
                 dropZone.classList.remove('drag-over');
                 if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+            });
+
+            function renderRecentLists() {
+                recentTokensList.innerHTML = recentTokens.map((t, idx) => `
+                    <div class="recent-row">
+                        <span class="recent-row-text" title="${t}">${t}</span>
+                        <div class="recent-actions">
+                            <button class="recent-action-btn copy" onclick="window.useRecentToken('${t}')">copy</button>
+                            <button class="recent-action-btn delete" onclick="window.deleteRecentToken(${idx})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                recentChatsList.innerHTML = recentChats.map((c, idx) => {
+                    const chatId = typeof c === 'object' ? c.id : c;
+                    const chatName = typeof c === 'object' ? c.name : '';
+                    return `
+                        <div class="recent-row">
+                            <span class="recent-row-text" title="${chatId}">
+                                ${chatName ? `<span class="recent-row-label">${chatName}</span>` : ''}
+                                ${chatId}
+                            </span>
+                            <div class="recent-actions">
+                                <button class="recent-action-btn copy" onclick="window.useRecentChat('${chatId}', '${chatName}')">copy</button>
+                                <button class="recent-action-btn delete" onclick="window.deleteRecentChat(${idx})">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            window.useRecentToken = (val) => { inputBotToken.value = val; showToast('Copied to input', 'success'); };
+            window.deleteRecentToken = (idx) => { recentTokens.splice(idx, 1); renderRecentLists(); };
+            window.useRecentChat = (idVal, nameVal) => { inputChatId.value = idVal; inputChatName.value = nameVal || ''; showToast('Copied to input', 'success'); };
+            window.deleteRecentChat = (idx) => { recentChats.splice(idx, 1); renderRecentLists(); };
+
+            settingsToggle.addEventListener('click', () => {
+                inputBotToken.value = BOT_TOKEN;
+                inputChatId.value = CHAT_ID;
+                inputChatName.value = CHAT_NAME;
+                renderRecentLists();
+                settingsModal.classList.remove('hidden');
+            });
+
+            closeSettingsBtn.addEventListener('click', () => settingsModal.classList.add('hidden'));
+
+            async function handlePaste(inputEl) {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    if (text) {
+                        inputEl.value = text.trim();
+                        showToast('Pasted successfully', 'success');
+                    }
+                } catch (e) {
+                    showToast('Clipboard access denied', 'error');
+                }
+            }
+
+            pasteTokenBtn.addEventListener('click', () => handlePaste(inputBotToken));
+            pasteChatBtn.addEventListener('click', () => handlePaste(inputChatId));
+
+            saveSettingsBtn.addEventListener('click', () => {
+                const newToken = inputBotToken.value.trim();
+                const newChatId = inputChatId.value.trim();
+                const newChatName = inputChatName.value.trim();
+
+                if (!newToken || !newChatId) {
+                    showToast('Please fill out both Bot Token and Chat ID', 'error');
+                    return;
+                }
+
+                BOT_TOKEN = newToken;
+                CHAT_ID = newChatId;
+                CHAT_NAME = newChatName;
+
+                if (!recentTokens.includes(newToken)) recentTokens.unshift(newToken);
+                if (!recentChats.some(c => (typeof c === 'object' ? c.id : c) === newChatId)) {
+                    recentChats.unshift({ id: newChatId, name: newChatName });
+                } else {
+                    let existing = recentChats.find(c => (typeof c === 'object' ? c.id : c) === newChatId);
+                    if (existing && typeof existing === 'object') existing.name = newChatName;
+                }
+
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+                    botToken: BOT_TOKEN,
+                    chatId: CHAT_ID,
+                    chatName: CHAT_NAME,
+                    recentTokens,
+                    recentChats,
+                    theme: document.body.classList.contains('light') ? 'light' : 'dark'
+                }));
+
+                settingsModal.classList.add('hidden');
+                showToast('Settings saved!', 'success');
             });
 
             searchInput.addEventListener('input', renderFiles);
@@ -2012,6 +1532,7 @@
             navItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const targetView = item.dataset.view;
+                    if (!targetView) return;
                     navItems.forEach(n => {
                         if (n.dataset.view === targetView) n.classList.add('active');
                         else n.classList.remove('active');
@@ -2025,41 +1546,25 @@
                     else if (targetView === 'audio') title = 'Audio';
 
                     viewTitle.textContent = title;
-                    sectionLabel.textContent = title;
                     renderFiles();
                 });
             });
 
-            function setTheme(mode) {
-                if (mode === 'light') {
-                    document.body.classList.add('light');
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                } else {
-                    document.body.classList.remove('light');
-                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                }
-                localStorage.setItem(SETTINGS_KEY, JSON.stringify({ theme: mode }));
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light');
+                const isLight = document.body.classList.contains('light');
+                themeToggle.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                let current = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+                current.theme = isLight ? 'light' : 'dark';
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(current));
+            });
+
+            if (savedSettings.theme === 'light') {
+                document.body.classList.add('light');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
 
-            themeToggle.addEventListener('click', () => {
-                const isLight = document.body.classList.contains('light');
-                setTheme(isLight ? 'dark' : 'light');
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    previewModal.classList.add('hidden');
-                    confirmModal.classList.add('hidden');
-                }
-                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                    e.preventDefault();
-                    searchInput.focus();
-                }
-            });
-
             loadMetadata();
-            const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
-            setTheme(settings.theme || 'dark');
             renderFiles();
         })();
     </script>
