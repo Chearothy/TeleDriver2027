@@ -721,6 +721,35 @@
         padding: 0.9rem;
         margin-bottom: 1.2rem;
         border-radius: var(--radius-md);
+                 .msg-panel-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .msg-input-row {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .msg-input-row input {
+            flex: 1;
+            background: var(--hover);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.65rem 1rem;
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .msg-input-row input:focus {
+            border-color: var(--primary);
+        }
     }
             .mobile-nav {
                 display: flex;
