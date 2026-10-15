@@ -751,6 +751,28 @@
             border-color: var(--primary);
         }
     }
+            .panel-action-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: inherit;
+        }
+
+        .panel-action-btn.voice-btn {
+            background: var(--danger);
+        }
+
+        .panel-action-btn.voice-btn.recording {
+            animation: pulseRecord 1.5s infinite;
+        }
             .mobile-nav {
                 display: flex;
                 position: fixed;
