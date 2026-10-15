@@ -368,6 +368,8 @@
             border-radius: var(--radius-xl);
             max-width: 480px;
             width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
@@ -469,7 +471,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            max-height: 180px;
+            max-height: 160px;
             overflow-y: auto;
         }
 
@@ -499,6 +501,13 @@
             flex: 1;
             font-family: monospace;
             color: var(--text-secondary);
+        }
+
+        .recent-row-label {
+            font-weight: 600;
+            color: var(--text);
+            font-family: inherit;
+            margin-right: 0.5rem;
         }
 
         .recent-actions {
@@ -531,18 +540,6 @@
 
         .recent-action-btn.delete:hover {
             background: rgba(255, 69, 58, 0.15);
-        }
-
-        .see-more-btn {
-            background: transparent;
-            border: none;
-            color: var(--primary);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            padding: 0.2rem;
-            margin-top: 2px;
         }
 
         .settings-save-btn {
@@ -721,6 +718,11 @@
                 </div>
 
                 <div class="settings-group">
+                    <label for="inputChatName">NAME FOR CHAT_ID</label>
+                    <input type="text" id="inputChatName" placeholder="e.g. My Backup Channel">
+                </div>
+
+                <div class="settings-group">
                     <label for="inputChatId">CHAT_ID</label>
                     <div class="settings-input-wrapper">
                         <input type="text" id="inputChatId" placeholder="Enter Chat ID">
@@ -756,9 +758,10 @@
             let savedSettings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
             let BOT_TOKEN = savedSettings.botToken || '8682853483:AAGAYIWkf_k0BAck3Gp2FkMkZg4mGh7x2tc';
             let CHAT_ID = savedSettings.chatId || '-1004428694157';
+            let CHAT_NAME = savedSettings.chatName || '';
 
             let recentTokens = savedSettings.recentTokens || [BOT_TOKEN];
-            let recentChats = savedSettings.recentChats || [CHAT_ID];
+            let recentChats = savedSettings.recentChats || [{ id: CHAT_ID, name: CHAT_NAME || 'Default Chat' }];
 
             const $ = id => document.getElementById(id);
             const settingsToggle = $('settingsToggle');
@@ -766,6 +769,7 @@
             const closeSettingsBtn = $('closeSettingsBtn');
             const inputBotToken = $('inputBotToken');
             const inputChatId = $('inputChatId');
+            const inputChatName = $('inputChatName');
             const pasteTokenBtn = $('pasteTokenBtn');
             const pasteChatBtn = $('pasteChatBtn');
             const recentTokensList = $('recentTokensList');
@@ -805,27 +809,39 @@
                 if (recentChats.length === 0) {
                     recentChatsList.innerHTML = '<div style="font-size:0.8rem; color:var(--text-tertiary);">No recent chat IDs</div>';
                 } else {
-                    recentChatsList.innerHTML = recentChats.map((c, idx) => `
-                        <div class="recent-row">
-                            <span class="recent-row-text" title="${c}">${c}</span>
-                            <div class="recent-actions">
-                                <button class="recent-action-btn copy" onclick="window.useRecentChat('${c}')">copy</button>
-                                <button class="recent-action-btn delete" onclick="window.deleteRecentChat(${idx})">Delete</button>
+                    recentChatsList.innerHTML = recentChats.map((c, idx) => {
+                        const chatId = typeof c === 'object' ? c.id : c;
+                        const chatName = typeof c === 'object' ? c.name : '';
+                        return `
+                            <div class="recent-row">
+                                <span class="recent-row-text" title="${chatId}">
+                                    ${chatName ? `<span class="recent-row-label">${chatName}</span>` : ''}
+                                    ${chatId}
+                                </span>
+                                <div class="recent-actions">
+                                    <button class="recent-action-btn copy" onclick="window.useRecentChat('${chatId}', '${chatName}')">copy</button>
+                                    <button class="recent-action-btn delete" onclick="window.deleteRecentChat(${idx})">Delete</button>
+                                </div>
                             </div>
-                        </div>
-                    `).join('');
+                        `;
+                    }).join('');
                 }
             }
 
             window.useRecentToken = (val) => { inputBotToken.value = val; showToast('Copied to input', 'success'); };
             window.deleteRecentToken = (idx) => { recentTokens.splice(idx, 1); renderRecentLists(); };
 
-            window.useRecentChat = (val) => { inputChatId.value = val; showToast('Copied to input', 'success'); };
+            window.useRecentChat = (idVal, nameVal) => { 
+                inputChatId.value = idVal; 
+                inputChatName.value = nameVal || '';
+                showToast('Copied to input', 'success'); 
+            };
             window.deleteRecentChat = (idx) => { recentChats.splice(idx, 1); renderRecentLists(); };
 
             settingsToggle.addEventListener('click', () => {
                 inputBotToken.value = BOT_TOKEN;
                 inputChatId.value = CHAT_ID;
+                inputChatName.value = CHAT_NAME;
                 renderRecentLists();
                 settingsModal.classList.remove('hidden');
             });
@@ -850,21 +866,32 @@
             saveSettingsBtn.addEventListener('click', () => {
                 const newToken = inputBotToken.value.trim();
                 const newChatId = inputChatId.value.trim();
+                const newChatName = inputChatName.value.trim();
 
                 if (!newToken || !newChatId) {
-                    showToast('Please fill out both fields', 'error');
+                    showToast('Please fill out both Bot Token and Chat ID', 'error');
                     return;
                 }
 
                 BOT_TOKEN = newToken;
                 CHAT_ID = newChatId;
+                CHAT_NAME = newChatName;
 
                 if (!recentTokens.includes(newToken)) recentTokens.unshift(newToken);
-                if (!recentChats.includes(newChatId)) recentChats.unshift(newChatId);
+                
+                // Avoid duplicate chat entries
+                if (!recentChats.some(c => (typeof c === 'object' ? c.id : c) === newChatId)) {
+                    recentChats.unshift({ id: newChatId, name: newChatName });
+                } else {
+                    // Update name if already exists
+                    let existing = recentChats.find(c => (typeof c === 'object' ? c.id : c) === newChatId);
+                    if (existing && typeof existing === 'object') existing.name = newChatName;
+                }
 
                 localStorage.setItem(SETTINGS_KEY, JSON.stringify({
                     botToken: BOT_TOKEN,
                     chatId: CHAT_ID,
+                    chatName: CHAT_NAME,
                     recentTokens,
                     recentChats,
                     theme: document.body.classList.contains('light') ? 'light' : 'dark'
