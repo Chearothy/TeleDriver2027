@@ -476,17 +476,17 @@
 
 
                         // new code
-                            function closePreview() {
-                    openPreview.current = null;
-                    previewContent.querySelectorAll('video,audio').forEach(m => { m.pause(); m.removeAttribute('src'); m.load(); });
-                    previewContent.innerHTML = '';
-                    previewModal.classList.add('hidden');
-                }
-                closePreviewBtn.addEventListener('click', closePreview);
-                previewModal.addEventListener('click', (e) => { if (e.target === previewModal) closePreview(); });
+                //             function closePreview() {
+                //     openPreview.current = null;
+                //     previewContent.querySelectorAll('video,audio').forEach(m => { m.pause(); m.removeAttribute('src'); m.load(); });
+                //     previewContent.innerHTML = '';
+                //     previewModal.classList.add('hidden');
+                // }
+                // closePreviewBtn.addEventListener('click', closePreview);
+                // previewModal.addEventListener('click', (e) => { if (e.target === previewModal) closePreview(); });
              // old code
-            // closePreviewBtn.addEventListener('click', () => previewModal.classList.add('hidden'));
-            // previewModal.addEventListener('click', (e) => { if (e.target === previewModal) previewModal.classList.add('hidden'); });
+            closePreviewBtn.addEventListener('click', () => previewModal.classList.add('hidden'));
+            previewModal.addEventListener('click', (e) => { if (e.target === previewModal) previewModal.classList.add('hidden'); });
 
             copyShareBtn.addEventListener('click', () => {
                 if (shareUrlInput.value && !shareUrlInput.value.includes('Unable') && !shareUrlInput.value.includes('Generating')) {
