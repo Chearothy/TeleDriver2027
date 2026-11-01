@@ -368,111 +368,111 @@
                 setTimeout(() => toast.remove(), 2500);
             }
                 // new code 
+//             function openPreview(file) {
+//     previewModal.classList.remove('hidden');
+//     previewTitle.textContent = file.name;
+//     previewContent.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary)">Loading preview...</div>';
+
+//     const type = file.type || '';
+//     const ext = (file.name.split('.').pop() || '').toLowerCase();
+//     const token = Symbol();               // prevents a late response filling the wrong file
+//     openPreview.current = token;
+
+//     previewDetails.innerHTML = `
+//         <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
+//         <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
+//         <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
+//         <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
+//     `;
+
+//     shareUrlInput.value = 'Generating link...';
+
+//     resolveFileUrl(file.file_id).then(async (url) => {
+//         if (openPreview.current !== token) return;
+//         shareUrlInput.value = url || 'Unable to generate link';
+//         previewContent.innerHTML = '';
+
+//         if (!url) {
+//             previewContent.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary)">Could not load file</div>';
+//             return;
+//         }
+
+//         const isImage = type.startsWith('image/');
+//         const isVideo = type.startsWith('video/') || ['mkv', 'mp4', 'webm', 'mov'].includes(ext);
+//         const isAudio = type.startsWith('audio/');
+
+//         if (isImage) {
+//             const img = document.createElement('img');
+//             img.src = url;
+//             img.alt = file.name;
+//             img.style.maxWidth = '100%';
+//             previewContent.appendChild(img);
+//         } else if (isVideo || isAudio) {
+//             const el = document.createElement(isVideo ? 'video' : 'audio');
+//             el.controls = true;
+//             el.preload = 'metadata';
+//             if (isVideo) { el.playsInline = true; el.style.maxWidth = '100%'; }
+//             else el.style.width = '100%';
+
+//             // Chrome can't play "video/x-matroska" directly -> load as blob with a playable mime type
+//             try {
+//                 const res = await fetch(url);
+//                 const blob = await res.blob();
+//                 if (openPreview.current !== token) return;
+//                 const mime = ext === 'mkv' ? 'video/webm' : (blob.type || type);
+//                 el.src = URL.createObjectURL(new Blob([blob], { type: mime }));
+//             } catch (e) {
+//                 el.src = url;   // fallback: direct link
+//             }
+//             previewContent.appendChild(el);
+//         } else {
+//             const cfg = getTypeConfig(type);
+//             previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
+//         }
+//     }).catch(() => {
+//         shareUrlInput.value = 'Error generating link';
+//     });
+// }
+//             // old code
             function openPreview(file) {
-    previewModal.classList.remove('hidden');
-    previewTitle.textContent = file.name;
-    previewContent.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary)">Loading preview...</div>';
+                previewModal.classList.remove('hidden');
+                previewTitle.textContent = file.name;
+                previewContent.innerHTML = '';
 
-    const type = file.type || '';
-    const ext = (file.name.split('.').pop() || '').toLowerCase();
-    const token = Symbol();               // prevents a late response filling the wrong file
-    openPreview.current = token;
+                const type = file.type || '';
+                if (type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = getTelegramFileUrl(file.file_id);
+                    img.alt = file.name;
+                    previewContent.appendChild(img);
+                } else if (type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.controls = true;
+                    video.src = getTelegramFileUrl(file.file_id);
+                    previewContent.appendChild(video);
+                } else if (type.startsWith('audio/')) {
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.src = getTelegramFileUrl(file.file_id);
+                    audio.style.width = '100%';
+                    previewContent.appendChild(audio);
+                } else {
+                    const cfg = getTypeConfig(type);
+                    previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
+                }
 
-    previewDetails.innerHTML = `
-        <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
-        <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
-        <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
-        <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
-    `;
+                previewDetails.innerHTML = `
+                    <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
+                    <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
+                    <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
+                `;
 
-    shareUrlInput.value = 'Generating link...';
-
-    resolveFileUrl(file.file_id).then(async (url) => {
-        if (openPreview.current !== token) return;
-        shareUrlInput.value = url || 'Unable to generate link';
-        previewContent.innerHTML = '';
-
-        if (!url) {
-            previewContent.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary)">Could not load file</div>';
-            return;
-        }
-
-        const isImage = type.startsWith('image/');
-        const isVideo = type.startsWith('video/') || ['mkv', 'mp4', 'webm', 'mov'].includes(ext);
-        const isAudio = type.startsWith('audio/');
-
-        if (isImage) {
-            const img = document.createElement('img');
-            img.src = url;
-            img.alt = file.name;
-            img.style.maxWidth = '100%';
-            previewContent.appendChild(img);
-        } else if (isVideo || isAudio) {
-            const el = document.createElement(isVideo ? 'video' : 'audio');
-            el.controls = true;
-            el.preload = 'metadata';
-            if (isVideo) { el.playsInline = true; el.style.maxWidth = '100%'; }
-            else el.style.width = '100%';
-
-            // Chrome can't play "video/x-matroska" directly -> load as blob with a playable mime type
-            try {
-                const res = await fetch(url);
-                const blob = await res.blob();
-                if (openPreview.current !== token) return;
-                const mime = ext === 'mkv' ? 'video/webm' : (blob.type || type);
-                el.src = URL.createObjectURL(new Blob([blob], { type: mime }));
-            } catch (e) {
-                el.src = url;   // fallback: direct link
+                shareUrlInput.value = 'Generating link...';
+                resolveFileUrl(file.file_id).then(url => {
+                    shareUrlInput.value = url || 'Unable to generate link';
+                }).catch(() => shareUrlInput.value = 'Error generating link');
             }
-            previewContent.appendChild(el);
-        } else {
-            const cfg = getTypeConfig(type);
-            previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
-        }
-    }).catch(() => {
-        shareUrlInput.value = 'Error generating link';
-    });
-}
-            // old code
-            // function openPreview(file) {
-            //     previewModal.classList.remove('hidden');
-            //     previewTitle.textContent = file.name;
-            //     previewContent.innerHTML = '';
-
-            //     const type = file.type || '';
-            //     if (type.startsWith('image/')) {
-            //         const img = document.createElement('img');
-            //         img.src = getTelegramFileUrl(file.file_id);
-            //         img.alt = file.name;
-            //         previewContent.appendChild(img);
-            //     } else if (type.startsWith('video/')) {
-            //         const video = document.createElement('video');
-            //         video.controls = true;
-            //         video.src = getTelegramFileUrl(file.file_id);
-            //         previewContent.appendChild(video);
-            //     } else if (type.startsWith('audio/')) {
-            //         const audio = document.createElement('audio');
-            //         audio.controls = true;
-            //         audio.src = getTelegramFileUrl(file.file_id);
-            //         audio.style.width = '100%';
-            //         previewContent.appendChild(audio);
-            //     } else {
-            //         const cfg = getTypeConfig(type);
-            //         previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
-            //     }
-
-            //     previewDetails.innerHTML = `
-            //         <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
-            //         <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
-            //         <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
-            //         <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
-            //     `;
-
-            //     shareUrlInput.value = 'Generating link...';
-            //     resolveFileUrl(file.file_id).then(url => {
-            //         shareUrlInput.value = url || 'Unable to generate link';
-            //     }).catch(() => shareUrlInput.value = 'Error generating link');
-            // }
 
 
                         // new code
