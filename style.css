@@ -742,15 +742,123 @@ body.light .orb { opacity: 0.35; }
 #cancelUploadBtn:disabled{opacity:.55;cursor:not-allowed}
 
 
-/* Reliable same-origin media preview */
-.preview-wrap { min-height: 180px; max-height: 72vh; overflow: auto; display:flex; align-items:center; justify-content:center; background:rgba(127,127,127,.08); border-radius:18px; padding:12px; }
-.media-image-preview { display:block; max-width:100%; max-height:68vh; width:auto; height:auto; object-fit:contain; margin:auto; border-radius:12px; }
-.media-video-preview { display:block; width:100%; max-height:68vh; background:#000; border-radius:12px; }
-.music-preview { width:min(560px,100%); padding:28px; border-radius:18px; text-align:center; background:linear-gradient(135deg,#25254b,#573d75,#b05b73); color:white; }
-.music-art { width:120px; height:120px; margin:0 auto 18px; border-radius:24px; display:grid; place-items:center; background:rgba(255,255,255,.16); font-size:48px; }
-.music-caption { margin-bottom:18px; overflow-wrap:anywhere; font-weight:600; }
-.music-preview audio { width:100%; }
-.pdf-preview { width:100%; height:70vh; border:0; border-radius:12px; background:#fff; }
-.text-preview { width:100%; max-height:68vh; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; text-align:left; padding:18px; border-radius:12px; background:var(--card-solid); color:var(--text); font: .9rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.preview-error { padding:30px 18px; text-align:center; color:var(--text-secondary); }
-@media(max-width:600px) { .preview-wrap { padding:8px; max-height:65vh; } .pdf-preview { height:62vh; } .music-preview { padding:20px 14px; } .music-art { width:92px;height:92px;font-size:38px; } }
+/* Preview-only improvements */
+#previewModal .modal-content {
+    width: min( min(94vw, 980px), 980px);
+    max-width: 980px;
+    max-height: 92vh;
+}
+#previewModal .preview-wrap {
+    width: 100%;
+    min-height: 220px;
+    max-height: 68vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    border-radius: 16px;
+    background: var(--hover, #111827);
+}
+#previewModal .preview-image {
+    display: block;
+    max-width: 100%;
+    max-height: 68vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+}
+#previewModal .preview-video {
+    display: block;
+    width: 100%;
+    max-height: 68vh;
+    background: #000;
+    border-radius: 12px;
+}
+#previewModal .preview-pdf {
+    display: block;
+    width: 100%;
+    height: 68vh;
+    border: 0;
+    background: #fff;
+    border-radius: 12px;
+}
+#previewModal .preview-text {
+    width: 100%;
+    max-height: 68vh;
+    overflow: auto;
+    margin: 0;
+    padding: 18px;
+    color: var(--text, #eee);
+    text-align: left;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font: 13px/1.6 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+#previewModal .preview-audio-panel {
+    width: min(100%, 620px);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+}
+#previewModal .preview-audio-art {
+    width: 150px;
+    height: 150px;
+    display: grid;
+    place-items: center;
+    border-radius: 24px;
+    color: white;
+    font-size: 64px;
+    background: linear-gradient(135deg, #385b91, #8c4d9d);
+    box-shadow: 0 16px 40px rgba(0,0,0,.25);
+}
+#previewModal .preview-audio-caption {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    font-weight: 600;
+}
+#previewModal .preview-audio-panel audio {
+    width: 100%;
+}
+#previewModal .preview-loading,
+#previewModal .preview-error {
+    width: 100%;
+    padding: 48px 20px;
+    text-align: center;
+    color: var(--text-secondary, #9ca3af);
+    overflow-wrap: anywhere;
+}
+#previewModal .file-details .detail-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+#previewModal .detail-value {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+    #previewModal .modal-content {
+        width: 96vw;
+        max-width: 96vw;
+        max-height: 94vh;
+        padding: 1rem;
+    }
+    #previewModal .preview-wrap {
+        min-height: 180px;
+        max-height: 58vh;
+    }
+    #previewModal .preview-image,
+    #previewModal .preview-video {
+        max-height: 58vh;
+    }
+    #previewModal .preview-pdf {
+        height: 58vh;
+    }
+    #previewModal .preview-audio-panel {
+        padding: 18px 10px;
+    }
+}
