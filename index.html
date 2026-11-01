@@ -347,16 +347,17 @@
                 return `https://api.telegram.org/file/bot${BOT_TOKEN}/${fileId}`;
             }
 
-            async function resolveFileUrl(fileId) {
-                try {
-                    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`);
-                    const data = await res.json();
-                    if (data.ok && data.result.file_path) {
-                        return `https://api.telegram.org/file/bot${BOT_TOKEN}/${data.result.file_path}`;
-                    }
-                } catch (e) { }
-                return null;
-            }
+          async function resolveFileUrl(fileId) {
+    try {
+        const res = await fetch(`${API_BASE}/bot${BOT_TOKEN}/getFile?file_id=${encodeURIComponent(fileId)}`);
+        const data = await res.json();
+        if (data.ok && data.result.file_path) {
+            const p = String(data.result.file_path).replace(/^\/+/, '');
+            return `${API_BASE}/file/bot${BOT_TOKEN}/${p}`;
+        }
+    } catch (e) { }
+    return null;
+}
 
             function showToast(msg, type = 'info') {
                 document.querySelectorAll('.toast').forEach(t => t.remove());
@@ -367,126 +368,179 @@
                 document.body.appendChild(toast);
                 setTimeout(() => toast.remove(), 2500);
             }
-                // new code 
-//             function openPreview(file) {
-//     previewModal.classList.remove('hidden');
-//     previewTitle.textContent = file.name;
-//     previewContent.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary)">Loading preview...</div>';
+               let previewBlobUrl = null;
 
-//     const type = file.type || '';
-//     const ext = (file.name.split('.').pop() || '').toLowerCase();
-//     const token = Symbol();               // prevents a late response filling the wrong file
-//     openPreview.current = token;
+function closePreview() {
+    openPreview.current = null;
+    previewContent.querySelectorAll('video,audio').forEach(m => { m.pause(); m.removeAttribute('src'); m.load(); });
+    previewContent.innerHTML = '';
+    if (previewBlobUrl) { URL.revokeObjectURL(previewBlobUrl); previewBlobUrl = null; }
+    previewModal.classList.add('hidden');
+}
 
-//     previewDetails.innerHTML = `
-//         <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
-//         <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
-//         <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
-//         <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
-//     `;
+function previewMsg(text) {
+    previewContent.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text-secondary)">${text}</div>`;
+}
 
-//     shareUrlInput.value = 'Generating link...';
+function openPreview(file) {
+    previewModal.classList.remove('hidden');
+    previewTitle.textContent = file.name;
+    previewMsg('Loading preview...');
 
-//     resolveFileUrl(file.file_id).then(async (url) => {
-//         if (openPreview.current !== token) return;
-//         shareUrlInput.value = url || 'Unable to generate link';
-//         previewContent.innerHTML = '';
+    const type = file.type || '';
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    const token = Symbol();
+    openPreview.current = token;
 
-//         if (!url) {
-//             previewContent.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary)">Could not load file</div>';
-//             return;
-//         }
+    previewDetails.innerHTML = `
+        <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
+        <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
+        <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
+        <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
+    `;
 
-//         const isImage = type.startsWith('image/');
-//         const isVideo = type.startsWith('video/') || ['mkv', 'mp4', 'webm', 'mov'].includes(ext);
-//         const isAudio = type.startsWith('audio/');
+    shareUrlInput.value = 'Generating link...';
 
-//         if (isImage) {
-//             const img = document.createElement('img');
-//             img.src = url;
-//             img.alt = file.name;
-//             img.style.maxWidth = '100%';
-//             previewContent.appendChild(img);
-//         } else if (isVideo || isAudio) {
-//             const el = document.createElement(isVideo ? 'video' : 'audio');
-//             el.controls = true;
-//             el.preload = 'metadata';
-//             if (isVideo) { el.playsInline = true; el.style.maxWidth = '100%'; }
-//             else el.style.width = '100%';
+    resolveFileUrl(file.file_id).then(async (url) => {
+        if (openPreview.current !== token) return;
+        shareUrlInput.value = url || 'Unable to generate link';
 
-//             // Chrome can't play "video/x-matroska" directly -> load as blob with a playable mime type
-//             try {
-//                 const res = await fetch(url);
-//                 const blob = await res.blob();
-//                 if (openPreview.current !== token) return;
-//                 const mime = ext === 'mkv' ? 'video/webm' : (blob.type || type);
-//                 el.src = URL.createObjectURL(new Blob([blob], { type: mime }));
-//             } catch (e) {
-//                 el.src = url;   // fallback: direct link
-//             }
-//             previewContent.appendChild(el);
-//         } else {
-//             const cfg = getTypeConfig(type);
-//             previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
-//         }
-//     }).catch(() => {
-//         shareUrlInput.value = 'Error generating link';
-//     });
-// }
-//             // old code
-            function openPreview(file) {
-                previewModal.classList.remove('hidden');
-                previewTitle.textContent = file.name;
-                previewContent.innerHTML = '';
+        if (!url) {
+            previewMsg('Cannot load file. Over 20 MB needs a Local Bot API Server.');
+            return;
+        }
 
-                const type = file.type || '';
-                if (type.startsWith('image/')) {
-                    const img = document.createElement('img');
-                    img.src = getTelegramFileUrl(file.file_id);
-                    img.alt = file.name;
-                    previewContent.appendChild(img);
-                } else if (type.startsWith('video/')) {
-                    const video = document.createElement('video');
-                    video.controls = true;
-                    video.src = getTelegramFileUrl(file.file_id);
-                    previewContent.appendChild(video);
-                } else if (type.startsWith('audio/')) {
-                    const audio = document.createElement('audio');
-                    audio.controls = true;
-                    audio.src = getTelegramFileUrl(file.file_id);
-                    audio.style.width = '100%';
-                    previewContent.appendChild(audio);
-                } else {
-                    const cfg = getTypeConfig(type);
-                    previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
-                }
+        const isImage = type.startsWith('image/');
+        const isVideo = type.startsWith('video/') || ['mkv', 'mp4', 'webm', 'mov', 'm4v'].includes(ext);
+        const isAudio = type.startsWith('audio/') || ['mp3', 'ogg', 'opus', 'm4a', 'wav'].includes(ext);
 
-                previewDetails.innerHTML = `
-                    <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
-                    <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
-                    <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
-                    <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
-                `;
+        if (isImage) {
+            const img = document.createElement('img');
+            img.alt = file.name;
+            img.style.maxWidth = '100%';
+            img.onerror = () => previewMsg('Image cannot be displayed');
+            img.src = url;
+            previewContent.innerHTML = '';
+            previewContent.appendChild(img);
+        } else if (isVideo || isAudio) {
+            const el = document.createElement(isVideo ? 'video' : 'audio');
+            el.controls = true;
+            el.preload = 'metadata';
+            if (isVideo) { el.playsInline = true; el.style.maxWidth = '100%'; }
+            else el.style.width = '100%';
 
-                shareUrlInput.value = 'Generating link...';
-                resolveFileUrl(file.file_id).then(url => {
-                    shareUrlInput.value = url || 'Unable to generate link';
-                }).catch(() => shareUrlInput.value = 'Error generating link');
+            el.src = url;   // stream directly: works for big files, no RAM used
+            // only small mkv (<=150MB) are re-labelled as webm so Chrome can play them
+            if (ext === 'mkv' && file.size && file.size <= 150 * 1024 * 1024) {
+                try {
+                    const blob = await (await fetch(url)).blob();
+                    if (openPreview.current !== token) return;
+                    previewBlobUrl = URL.createObjectURL(new Blob([blob], { type: 'video/webm' }));
+                    el.src = previewBlobUrl;
+                } catch (e) { el.src = url; }
             }
+            el.onerror = () => previewMsg('Browser cannot play this file. Use Download instead.');
+            previewContent.innerHTML = '';
+            previewContent.appendChild(el);
+        } else {
+            const cfg = getTypeConfig(type);
+            previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
+        }
+    }).catch(() => {
+        shareUrlInput.value = 'Error generating link';
+        previewMsg('Error loading file');
+    });
+}
+
+let previewBlobUrl = null;
+
+function closePreview() {
+    openPreview.current = null;
+    previewContent.querySelectorAll('video,audio').forEach(m => { m.pause(); m.removeAttribute('src'); m.load(); });
+    previewContent.innerHTML = '';
+    if (previewBlobUrl) { URL.revokeObjectURL(previewBlobUrl); previewBlobUrl = null; }
+    previewModal.classList.add('hidden');
+}
+
+function previewMsg(text) {
+    previewContent.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text-secondary)">${text}</div>`;
+}
+
+function openPreview(file) {
+    previewModal.classList.remove('hidden');
+    previewTitle.textContent = file.name;
+    previewMsg('Loading preview...');
+
+    const type = file.type || '';
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    const token = Symbol();
+    openPreview.current = token;
+
+    previewDetails.innerHTML = `
+        <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">${file.name}</span></div>
+        <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">${formatBytes(file.size)}</span></div>
+        <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${file.type || 'Unknown'}</span></div>
+        <div class="detail-item"><span class="detail-label">Uploaded</span><span class="detail-value">${formatDate(file.date)}</span></div>
+    `;
+
+    shareUrlInput.value = 'Generating link...';
+
+    resolveFileUrl(file.file_id).then(async (url) => {
+        if (openPreview.current !== token) return;
+        shareUrlInput.value = url || 'Unable to generate link';
+
+        if (!url) {
+            previewMsg('Cannot load file. Over 20 MB needs a Local Bot API Server.');
+            return;
+        }
+
+        const isImage = type.startsWith('image/');
+        const isVideo = type.startsWith('video/') || ['mkv', 'mp4', 'webm', 'mov', 'm4v'].includes(ext);
+        const isAudio = type.startsWith('audio/') || ['mp3', 'ogg', 'opus', 'm4a', 'wav'].includes(ext);
+
+        if (isImage) {
+            const img = document.createElement('img');
+            img.alt = file.name;
+            img.style.maxWidth = '100%';
+            img.onerror = () => previewMsg('Image cannot be displayed');
+            img.src = url;
+            previewContent.innerHTML = '';
+            previewContent.appendChild(img);
+        } else if (isVideo || isAudio) {
+            const el = document.createElement(isVideo ? 'video' : 'audio');
+            el.controls = true;
+            el.preload = 'metadata';
+            if (isVideo) { el.playsInline = true; el.style.maxWidth = '100%'; }
+            else el.style.width = '100%';
+
+            el.src = url;   // stream directly: works for big files, no RAM used
+            // only small mkv (<=150MB) are re-labelled as webm so Chrome can play them
+            if (ext === 'mkv' && file.size && file.size <= 150 * 1024 * 1024) {
+                try {
+                    const blob = await (await fetch(url)).blob();
+                    if (openPreview.current !== token) return;
+                    previewBlobUrl = URL.createObjectURL(new Blob([blob], { type: 'video/webm' }));
+                    el.src = previewBlobUrl;
+                } catch (e) { el.src = url; }
+            }
+            el.onerror = () => previewMsg('Browser cannot play this file. Use Download instead.');
+            previewContent.innerHTML = '';
+            previewContent.appendChild(el);
+        } else {
+            const cfg = getTypeConfig(type);
+            previewContent.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas ${cfg.icon}" style="font-size:3rem; color:${cfg.color}"></i><p style="color:var(--text-secondary); margin-top:0.5rem">No preview available</p></div>`;
+        }
+    }).catch(() => {
+        shareUrlInput.value = 'Error generating link';
+        previewMsg('Error loading file');
+    });
+}
+
+closePreviewBtn.addEventListener('click', closePreview);
+previewModal.addEventListener('click', (e) => { if (e.target === previewModal) closePreview(); });
 
 
-                        // new code
-                //             function closePreview() {
-                //     openPreview.current = null;
-                //     previewContent.querySelectorAll('video,audio').forEach(m => { m.pause(); m.removeAttribute('src'); m.load(); });
-                //     previewContent.innerHTML = '';
-                //     previewModal.classList.add('hidden');
-                // }
-                // closePreviewBtn.addEventListener('click', closePreview);
-                // previewModal.addEventListener('click', (e) => { if (e.target === previewModal) closePreview(); });
-             // old code
-            closePreviewBtn.addEventListener('click', () => previewModal.classList.add('hidden'));
-            previewModal.addEventListener('click', (e) => { if (e.target === previewModal) previewModal.classList.add('hidden'); });
+            ////////////////////////
 
             copyShareBtn.addEventListener('click', () => {
                 if (shareUrlInput.value && !shareUrlInput.value.includes('Unable') && !shareUrlInput.value.includes('Generating')) {
